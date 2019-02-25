@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Corp2.Web.Models.CorporationModel>
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger paddingTop">@Html.ValidationMessage("Error", new { @class = "text-danger" })</div>
+}
+
+<div class="jumbotron paddingTop">
+    <h3>List of Corporations</h3>
+    <div class="pull-right marginTop">
+        @Html.ActionLink("New Corporation", "Create", "Corporations", new { id = "" }, new { @class = "btn btn-primary marginTop" })
+    </div>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CorporationId)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Address)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CorporationId)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                <td>
+                    @Html.ActionLink("Users", "corp", "Users", new { id = item.CorporationId }, null) |
+                    @Html.ActionLink("Edit", "Edit", "Corporations", new { id = item.CorporationId }, null) |
+                    @Ajax.ActionLink("Delete", "Delete", "Corporations", new { id = item.CorporationId }, new AjaxOptions { HttpMethod = "POST" }, new { onclick = "return confirm('Do you really want to delete this corporation?')" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,76 @@
+﻿@model Corp2.Web.Models.UserModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal paddingTop">
+    <h4>@(ViewBag.IsNew ? "Add new User" : "Edit User")</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CorporationId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CorporationId, (SelectList)ViewBag.CorporationList, "Select Corporation", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.CorporationId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- User Id -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserId, new { htmlAttributes =
+                    ViewBag.IsNew ? (object)(new { @class = "form-control", required = "required" }) : (object)(new { @class = "form-control", required = "required", @readonly = "false" })
+            })
+            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- User name -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", required = "required", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value=@(ViewBag.IsNew?"Create":"Update") class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Users")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

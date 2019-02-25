@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Corp2.Web.Models.UserModel>
+@{
+    ViewBag.Title = "List of Users";
+
+}
+
+<div class="jumbotron paddingTop">
+    <h3>List of Users</h3>
+    <div class="pull-right marginTop">
+        @Html.ActionLink("New User", "Add", "Users", new { id = "" }, new { @class = "btn btn-primary marginTop" })
+    </div>
+        <table class="table">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CorporationId)</th>
+                <th>@Html.DisplayNameFor(model => model.UserId)</th>
+                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CorporationName)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Users", new { id = item.UserId }, null) |
+                    @Ajax.ActionLink("Delete", "Delete", "Users", new { id = item.UserId }, new AjaxOptions { HttpMethod = "POST" }, new { onclick = "return confirm('Do you really want to delete this user?')" })
+                </td>
+            </tr>
+            }
+
+        </table>
+    </div>
